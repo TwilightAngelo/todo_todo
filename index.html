@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+   <head>
+      <meta charset="utf-8" />
+      <title>HTML Document</title>
+      <!--__FontAwesome__-->
+      <script src="https://use.fontawesome.com/faf3d36935.js"></script>
+
+      <!--__Bootrap__ -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+      <!--__Angular__-->
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.js"></script>
+
+      <!--__Myscripts__-->
+      <link href="frontend/myStyle.css" rel="stylesheet">
+      <script type="text/javascript" src="frontend/myAngular.js"></script>
+      <script type="text/javascript" src="frontend/groupFactory.js"></script>
+      <script type="text/javascript" src="frontend/taskFactory.js"></script>
+
+   </head>
+   <body background="frontend/pink.png">
+   <div class="container" ng-controller="groupsCtrl as groupsCtrl">
+      <h2>Todo lists</h2>
+
+      <div class="row" ng-controller="groupCtrl as groupCtrl">
+           <div class="col-sm-12" ng-repeat="(groupIndex, group) in groups">
+               <a href="#{{fetch(group.title)}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8">{{group.title}}</a>
+               <a class="btn btn-outlined btn-danger magicMargin" ng-click="groupCtrl.removeGroup(group)"><i class="fa fa-times fa-1x" aria-hidden="true"></i></a>
+               <div ng-controller="taskCtrl as taskCtrl" ng-show="groupCtrl.isUnhide(groupIndex)">
+                  <div ng-init="taskCtrl.getTasks(group)">
+                     <div class="tab-content">
+                         <div role="tabpanel" class="tab-pane fade in active" id="{{fetch(group.title)}}">
+                           <div ng-repeat="(taskIndex, task) in tasks">
+                              <div ng-if="!taskCtrl.isEdit(taskIndex)">
+                                 <h3>{{task.title}}</h3>
+                                 <p>{{task.description}}</p>
+                                 <!-- Edit task -->
+                                 <a class="btn btn-outlined btn-info col-sm-4" ng-click="taskCtrl.editTask(taskIndex, task)"><i class="fa fa-pencil fa-1x" aria-hidden="true"></i> Edit Task</a>
+                                 <!-- Delete task -->
+                                 <a class="btn btn-outlined btn-danger col-sm-4" ng-click="taskCtrl.removeTask(task)"><i class="fa fa-times fa-1x" aria-hidden="true"></i> Delete Task</a>
+                              </div>
+                              <div ng-if="taskCtrl.isEdit(taskIndex)">
+                                 <form ng-submit="taskCtrl.updateTask(task)" onsubmit="setTimeout(function(){window.location.reload();},10)">
+                                    <div class="col-sm-8 input-group">
+                                       <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.title" placeholder="{{task.title}}">
+                                       <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.description" placeholder="{{task.description}}">
+                                       <input type="submit" class="btn btn-outlined btn-success col-sm-2" value="Edit task">
+                                    </div>                                    
+                                 </form>
+                              </div>
+                           </div>
+                         </div>
+                     </div>
+                  </div>
+                  <!-- Add new task to group -->
+                  <form ng-submit="taskCtrl.addTask(group)" onsubmit="setTimeout(function(){window.location.reload();},10)">
+                     <div class="col-sm-8 input-group">
+                        <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.title" placeholder="Enter task title">
+                        <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.description" placeholder="Enter task description">
+                        <input type="submit" class="btn btn-outlined btn-success" value="Add New Task">
+                     </div>
+                  </form>
+               </div>
+               
+           </div>
+       </div>
+
+       <h2>Wanna new one?</h2>
+      <!-- Adding new group -->
+      <form ng-click="groupsCtrl.addGroup(group)" onsubmit="setTimeout(function(){window.location.reload();},10)">
+         <div class="col-sm-8 input-group">
+            <input type="text" class="form-control" ng-model="group.title" placeholder="Titile">
+            <input type="submit" class="btn btn-outlined btn-success" value="Add New Group">
+         </div>    
+      </form>
+   </div>
+   </body>
+</html>
