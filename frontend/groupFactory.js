@@ -1,9 +1,11 @@
 angular.module('app').factory('groupFactory', function($http, $q){
+
+		var adress = 'http://185.221.152.183:8080/';
 	
 		return {
 		
 		getGroups: function() {
-			return $http.get('http://localhost:27017/')
+			return $http.get(adress)
 				.then(function(response){
 					if (typeof response.data === 'object') {
 						return response.data;
@@ -17,7 +19,7 @@ angular.module('app').factory('groupFactory', function($http, $q){
 
 		addGroup: function(group) {
 			//console.log('IN factory' + group);
-			return $http.post('http://localhost:27017', group)
+			return $http.post(adress, group)
 				.success(function(response) {
 					console.log('post success ' + response);
 				})
@@ -28,7 +30,7 @@ angular.module('app').factory('groupFactory', function($http, $q){
 
 		removeGroup: function(group) {
 			//console.log(group);
-			return $http.delete('http://localhost:27017/' + group._id)
+			return $http.delete(adress + group._id)
 				.success(function(response) {
 					console.log('group removed');
 				})

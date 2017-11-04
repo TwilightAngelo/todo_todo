@@ -1,9 +1,11 @@
 angular.module('app').factory('taskFactory', function($http, $q){
 
+	var adress = 'http://185.221.152.183:8080/tasks/';
+
 	return {
 
 		getTasks: function(group) {
-			return $http.get('http://localhost:27017/tasks/' + group._id)
+			return $http.get(adress + group._id)
 				.then(function(response){
 					if (typeof response.data === 'object') {
 						return response.data;
@@ -16,7 +18,7 @@ angular.module('app').factory('taskFactory', function($http, $q){
 		},
 
 		addTask: function(task) {
-			return $http.post('http://localhost:27017/tasks', task)
+			return $http.post(adress, task)
 				.success(function(response) {
 					console.log('task added');
 				})
@@ -26,7 +28,7 @@ angular.module('app').factory('taskFactory', function($http, $q){
 		},
 
 		removeTask: function(task) {
-			return $http.delete('http://localhost:27017/tasks/' + task._id)
+			return $http.delete(adress + task._id)
 				.success(function(response) {
 					console.log('task removed');
 				})
@@ -36,7 +38,7 @@ angular.module('app').factory('taskFactory', function($http, $q){
 		},
 
 		updateTask: function(task) {
-			return $http.put('http://localhost:27017/tasks/' + task._id, task)
+			return $http.put(adress + task._id, task)
 				.success(function(response) {
 					console.log('task edited');
 				})

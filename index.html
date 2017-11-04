@@ -45,7 +45,7 @@
                                  <a class="btn btn-outlined btn-danger col-sm-4" ng-click="taskCtrl.removeTask(task)"><i class="fa fa-times fa-1x" aria-hidden="true"></i> Delete Task</a>
                               </div>
                               <div ng-if="taskCtrl.isEdit(taskIndex)">
-                                 <form ng-submit="taskCtrl.updateTask(task)" onsubmit="setTimeout(function(){window.location.reload();},10)">
+                                 <form ng-submit="taskCtrl.updateTask(task)">
                                     <div class="col-sm-8 input-group">
                                        <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.title" placeholder="{{task.title}}">
                                        <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.description" placeholder="{{task.description}}">
@@ -58,7 +58,7 @@
                      </div>
                   </div>
                   <!-- Add new task to group -->
-                  <form ng-submit="taskCtrl.addTask(group)" onsubmit="setTimeout(function(){window.location.reload();},10)">
+                  <form ng-submit="taskCtrl.addTask(group)">
                      <div class="col-sm-8 input-group">
                         <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.title" placeholder="Enter task title">
                         <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.description" placeholder="Enter task description">
@@ -72,7 +72,7 @@
 
        <h2>Wanna new one?</h2>
       <!-- Adding new group -->
-      <form ng-click="groupsCtrl.addGroup(group)" onsubmit="setTimeout(function(){window.location.reload();},10)">
+      <form ng-click="groupsCtrl.addGroup(group)">
          <div class="col-sm-8 input-group">
             <input type="text" class="form-control" ng-model="group.title" placeholder="Titile">
             <input type="submit" class="btn btn-outlined btn-success" value="Add New Group">

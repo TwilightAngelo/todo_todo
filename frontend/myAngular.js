@@ -35,6 +35,7 @@ module.controller('groupsCtrl', function(groupFactory, $scope){
 
 	this.addGroup = function(group) {
 		groupFactory.addGroup(group);
+		window.location.reload();
 	};
 });
 
@@ -64,6 +65,7 @@ module.controller('taskCtrl', function(taskFactory, $scope) {
 						  			groupId : group._id
 		}
 		taskFactory.addTask(newTask);
+		window.location.reload();
 	}
 
 	this.removeTask = function(task) {
@@ -78,6 +80,7 @@ module.controller('taskCtrl', function(taskFactory, $scope) {
 						  			groupId : this.currentTask.groupId
 		}
 		taskFactory.updateTask(newTask);
+		window.location.reload();
 	}
 
 	this.isEdit = function(index) {
