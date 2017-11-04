@@ -1,6 +1,6 @@
 angular.module('app').factory('groupFactory', function($http, $q){
 
-		var adress = 'http://185.221.152.183:27000/';
+		var adress = 'http://185.221.152.183:13013/';
 	
 		return {
 		
