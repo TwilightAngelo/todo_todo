@@ -35,7 +35,6 @@ module.controller('groupsCtrl', function(groupFactory, $scope){
 
 	this.addGroup = function(group) {
 		groupFactory.addGroup(group);
-		window.location.reload();
 	};
 });
 
