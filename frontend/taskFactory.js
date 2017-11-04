@@ -1,6 +1,6 @@
 angular.module('app').factory('taskFactory', function($http, $q){
 
-	var adress = 'http://185.221.152.183:8080/tasks/';
+	var adress = 'http://185.221.152.183:27000/tasks/';
 
 	return {
 
