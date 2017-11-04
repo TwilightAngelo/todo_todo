@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router({mergeParams : true});
-var Group = require(__base + 'dbmodels/group.js');
+var Group = require('../dbmodels/group.js');
 
 router.get('/', function(req, res, next) {
 	Group.find({}, function(err, groups){

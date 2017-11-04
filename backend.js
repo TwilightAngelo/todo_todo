@@ -1,26 +1,26 @@
-global.__base = __dirname + '/';
-global.config = require(__base + '/config.js');
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const config = require('./config')
+const debug = require('debug')('app')
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var cors = require('cors');
-var app = express();
+let app = express()
 
-app.use(cors());
+app.use(cors())
 
-mongoose.connect(config.mongoConnectionString);
+mongoose.connect(config.mongoConnectionString)
 mongoose.connection.on('error', () => {
-	console.log('DB connectoin error');
-});
+	debug('DB connectoin error')
+})
 mongoose.connection.once('open', (callback) => {
-	console.log('DB connection estabilished');
-});
+	debug('DB connection estabilished')
+})
 
-app.use(bodyParser.json());
-app.use('/', require(__base + 'routes/groups.js'));
-app.use('/tasks', require(__base + 'routes/tasks.js'));
+app.use(bodyParser.json())
+app.use('/', require('./routes/groups.js'))
+app.use('/tasks', require('./routes/tasks.js'))
 
-app.listen(config.port, function() {
-	console.log('Im online');
+app.listen(config.port, () => {
+	debug('Im online')
 })

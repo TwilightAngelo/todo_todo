@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router({mergeParams : true});
-var Task = require(__base + 'dbmodels/task.js');
+var Task = require('../dbmodels/task.js');
 
 router.get('/', function(req, res, next) {
 	Task.find({}, function(err, tasks){

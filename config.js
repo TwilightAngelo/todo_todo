@@ -1,4 +1,4 @@
 module.exports = {
-  mongoConnectionString: 'http://185.221.152.183:8080/',
+  mongoConnectionString: 'mongodb://localhost:27017/todo',
   port: 13013,
 }
