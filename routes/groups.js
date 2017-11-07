@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 		if(err){
 			next(err);
 		} else {
-			res.send(groups);
+			res.json(groups);
 		}
 	});
 });
@@ -22,7 +22,13 @@ router.post('/', function(req, res, next) {
 		if(err) {
 			next(err);
 		} else {
-			res.sendStatus('ok');
+			Group.find({}, function(err, groups){
+				if(err){
+					next(err);
+				} else {
+					res.json(groups);
+				}
+			});
 		}
 	});
 });
@@ -32,7 +38,13 @@ router.delete('/:gid', function(req, res, next) {
 		if (err) {
 			next(err);
 		} else {
-			res.sendStatus('ok');
+			Group.find({}, function(err, groups){
+				if(err){
+					next(err);
+				} else {
+					res.json(groups);
+				}
+			});
 		}
 	});
 }); 

@@ -23,20 +23,20 @@
       <script type="text/javascript" src="frontend/taskFactory.js"></script>
 
    </head>
-   <body background="frontend/pink.png">
+   <body>
    <div class="container" ng-controller="groupsCtrl as groupsCtrl">
       <h2>Todo lists</h2>
 
       <div class="row" ng-controller="groupCtrl as groupCtrl">
            <div class="col-sm-12" ng-repeat="(groupIndex, group) in groups">
-               <a href="#{{fetch(group.title)}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8">{{group.title}}</a>
+               <a href="#{{fetch(group.title)}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8" ng-cloak>{{group.title}}</a>
                <a class="btn btn-outlined btn-danger magicMargin" ng-click="groupCtrl.removeGroup(group)"><i class="fa fa-times fa-1x" aria-hidden="true"></i></a>
                <div ng-controller="taskCtrl as taskCtrl" ng-show="groupCtrl.isUnhide(groupIndex)">
                   <div ng-init="taskCtrl.getTasks(group)">
                      <div class="tab-content">
-                         <div role="tabpanel" class="tab-pane fade in active" id="{{fetch(group.title)}}">
+                         <div role="tabpanel" class="tab-pane in active" id="{{fetch(group.title)}}">
                            <div ng-repeat="(taskIndex, task) in tasks">
-                              <div ng-if="!taskCtrl.isEdit(taskIndex)">
+                              <div ng-if="!taskCtrl.isEdit(taskIndex)" ng-cloak>
                                  <h3>{{task.title}}</h3>
                                  <p>{{task.description}}</p>
                                  <!-- Edit task -->
@@ -72,11 +72,9 @@
 
        <h2>Wanna new one?</h2>
       <!-- Adding new group -->
-      <form onsubmit="window.location.reload();">
-         <div class="col-sm-8 input-group">
-            <input type="text" class="form-control" ng-model="group.title" placeholder="Titile">
-            <input type="submit" class="btn btn-outlined btn-success" value="Add New Group" ng-click="groupsCtrl.addGroup(group)">
-         </div>    
+      <form class="input-group">
+         <input type="text" class="col-sm-5 form-control" ng-model="group.title" placeholder="Titile">
+         <input type="submit" class="col-sm-3 btn btn-outlined btn-success" value="Add New Group" ng-click="groupsCtrl.addGroup(group)">
       </form>
    </div>
    </body>
