@@ -163,4 +163,17 @@ module.controller('groupCtrl', function(groupFactory ,taskFactory, $scope) {
       });
   }
 
+  this.isUnhide = function(index) {
+    return $scope.activeGroupIndex === index;
+  }
+
+  this.hideUnhide = function(index) {
+    if ($scope.activeGroupIndex === index) {
+        $scope.activeGroupIndex = null;
+    }else{
+        $scope.activeGroupIndex = index;
+    }
+  }
+
+
 })

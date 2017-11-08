@@ -29,12 +29,12 @@
 
       <div class="row" ng-controller="groupCtrl as groupCtrl">
            <div class="col-sm-12" ng-repeat="(groupIndex, group) in groups">
-               <a href="#{{fetch(group.title)}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8" ng-cloak>{{group.title}}</a>
+               <a href="#{{group._id}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8" ng-cloak>{{group.title}}</a>
                <a class="btn btn-outlined btn-danger magicMargin" ng-click="groupCtrl.removeGroup(group)"><i class="fa fa-times fa-1x" aria-hidden="true"></i></a>
                <div ng-controller="taskCtrl as taskCtrl" ng-show="groupCtrl.isUnhide(groupIndex)">
                   <div ng-init="taskCtrl.getTasks(group)">
                      <div class="tab-content">
-                         <div role="tabpanel" class="tab-pane in active" id="{{fetch(group.title)}}">
+                         <div role="tabpanel" class="tab-pane in active" id="{{group._id}}">
                            <div ng-repeat="(taskIndex, task) in tasks">
                               <div ng-if="!taskCtrl.isEdit(taskIndex)" ng-cloak>
                                  <h3>{{task.title}}</h3>
