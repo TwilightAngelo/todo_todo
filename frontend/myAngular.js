@@ -2,6 +2,8 @@ var module = angular.module('app', []);
 
 module.controller('groupsCtrl', function(groupFactory, $scope){
 
+  $scope.formData ={};
+
   groupFactory.getGroups()
     .then(function(data) {
       if (data) {
@@ -14,6 +16,7 @@ module.controller('groupsCtrl', function(groupFactory, $scope){
   });
 
   this.getGroups =  function() {
+    console.log('get groups');
     groupFactory.getGroups()
     .then(function(data) {
       if (data) {
@@ -26,7 +29,9 @@ module.controller('groupsCtrl', function(groupFactory, $scope){
     });
   };
 
-  this.addGroup = function(group) {
+  this.addGroup = function() {
+
+    group = {title:$scope.formData.title};
     groupFactory.addGroup(group)    
     .then(function(data) {
       if (data) {
@@ -37,6 +42,7 @@ module.controller('groupsCtrl', function(groupFactory, $scope){
     }, function(error) {
           console.log('error');
     });
+    $scope.formData = {};
   };
 });
 
@@ -45,6 +51,7 @@ module.controller('taskCtrl', function(taskFactory, $scope) {
   var isEdit = false;
   var currentTask = null;
   $scope.activeTaskIndex;
+  $scope.formData = {};
 
   this.getTasks = function(group) {
     taskFactory.getTasks(group)
@@ -60,8 +67,8 @@ module.controller('taskCtrl', function(taskFactory, $scope) {
   }
 
   this.addTask = function(group) {
-    var newTask = { title : this.task.title,
-                    description : this.task.description,
+    var newTask = { title : $scope.formData.taskTitle,
+                    description : $scope.formData.taskDescription,
                     groupId : group._id
     }
     taskFactory.addTask(newTask)
@@ -71,9 +78,10 @@ module.controller('taskCtrl', function(taskFactory, $scope) {
         } else {
           console.log('error');
         }
-      }, function(error) {
-        console.log('error');
-      });
+    }, function(error) {
+      console.log('error');
+    });
+    $scope.formData = {};
   }
 
   this.removeTask = function(task) {
@@ -106,6 +114,7 @@ module.controller('taskCtrl', function(taskFactory, $scope) {
         console.log('error');
       });
     this.editTask(task);
+    this.task ={};
   }
 
   this.isEdit = function(index) {
@@ -142,6 +151,7 @@ module.controller('groupCtrl', function(groupFactory ,taskFactory, $scope) {
       .then(function(data){
         if (data) {
           $scope.data = data;
+          return data;
         } else {
           console.log('error');
         }
@@ -174,6 +184,5 @@ module.controller('groupCtrl', function(groupFactory ,taskFactory, $scope) {
         $scope.activeGroupIndex = index;
     }
   }
-
 
 })

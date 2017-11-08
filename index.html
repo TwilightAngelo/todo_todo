@@ -2,7 +2,8 @@
 <html ng-app = "app">
    <head>
       <meta charset="utf-8" />
-      <title>HTML Document</title>
+      <title>Todo list</title>
+      <link rel="icon" href="frontend/favicon.png">
       <!--__FontAwesome__-->
       <script src="https://use.fontawesome.com/faf3d36935.js"></script>
 
@@ -23,59 +24,68 @@
       <script type="text/javascript" src="frontend/taskFactory.js"></script>
 
    </head>
-   <body>
-   <div class="container" ng-controller="groupsCtrl as groupsCtrl">
+<body>
+<div>
+   <div class="container group-container" ng-controller="groupsCtrl as groupsCtrl">
       <h2>Todo lists</h2>
 
       <div class="row" ng-controller="groupCtrl as groupCtrl">
            <div class="col-sm-12" ng-repeat="(groupIndex, group) in groups">
-               <a href="#{{group._id}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8" ng-cloak>{{group.title}}</a>
-               <a class="btn btn-outlined btn-danger magicMargin" ng-click="groupCtrl.removeGroup(group)"><i class="fa fa-times fa-1x" aria-hidden="true"></i></a>
+               <div class="container">
+                  <a href="#{{group._id}}" data-toggle="tab" ng-click="groupCtrl.hideUnhide(groupIndex)" class="btn btn-outlined btn-primary magicMargin col-sm-8 col-8" ng-cloak>{{group.title}}</a>
+                  <a class="btn btn-outlined btn-danger magicMargin col-sm-1 col-1" ng-click="groupCtrl.removeGroup(group)"><i class="fa fa-times fa-1x" aria-hidden="true"></i></a>
+               </div>
                <div ng-controller="taskCtrl as taskCtrl" ng-show="groupCtrl.isUnhide(groupIndex)">
                   <div ng-init="taskCtrl.getTasks(group)">
                      <div class="tab-content">
                          <div role="tabpanel" class="tab-pane in active" id="{{group._id}}">
                            <div ng-repeat="(taskIndex, task) in tasks">
-                              <div ng-if="!taskCtrl.isEdit(taskIndex)" ng-cloak>
-                                 <h3>{{task.title}}</h3>
-                                 <p>{{task.description}}</p>
-                                 <!-- Edit task -->
-                                 <a class="btn btn-outlined btn-info col-sm-4" ng-click="taskCtrl.editTask(taskIndex, task)"><i class="fa fa-pencil fa-1x" aria-hidden="true"></i> Edit Task</a>
-                                 <!-- Delete task -->
-                                 <a class="btn btn-outlined btn-danger col-sm-4" ng-click="taskCtrl.removeTask(task)"><i class="fa fa-times fa-1x" aria-hidden="true"></i> Delete Task</a>
+                              <div ng-if="!taskCtrl.isEdit(taskIndex)">
+                                 <div class="container">
+                                    <h3>{{task.title}}</h3>
+                                    <p>{{task.description}}</p>
+                                    <!-- Edit task -->
+                                    <a class="btn btn-outlined btn-info col-sm-4 col-4" ng-click="taskCtrl.editTask(taskIndex, task)"><i  class="fa fa-pencil fa-1x" aria-hidden="true"></i> Edit</a>
+                                    <!-- Delete task -->
+                                    <a class="btn btn-outlined btn-danger col-sm-4 col-4" ng-click="taskCtrl.removeTask(task)"><i class="fa  fa-times fa-1x" aria-hidden="true"></i> Delete</a>
+                                 </div>
                               </div>
                               <div ng-if="taskCtrl.isEdit(taskIndex)">
                                  <form ng-submit="taskCtrl.updateTask(task)">
-                                    <div class="col-sm-8 input-group">
-                                       <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.title" placeholder="{{task.title}}">
-                                       <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.description" placeholder="{{task.description}}">
-                                       <input type="submit" class="btn btn-outlined btn-success col-sm-2" value="Edit task">
-                                    </div>                                    
+                                    <div class="col-sm-9 col-8">
+                                       <div class= "form-inline">
+                                          <input type="text" class="form-control magicMarginInput col-sm-3" ng-model="taskCtrl.task.title"   placeholder="{{task.title}}">
+                                          <input type="text" class="form-control magicMarginInput col-sm-5" ng-model="taskCtrl.task.   description" placeholder="{{task.description}}">
+                                          <input type="submit" class="btn btn-outlined btn-success col-sm-2" value="Edit">
+                                       </div>
+                                    </div>                                  
                                  </form>
                               </div>
                            </div>
                          </div>
                      </div>
+                     <form ng-submit="taskCtrl.addTask(group)">
+                        <div class="col-sm-9 col-8 form-inline">
+                           <input type="text" class="form-control magicMarginInput col-sm-3" ng-model="formData.taskTitle" placeholder ="Enter task title">
+                           <input type="text" class="form-control magicMarginInput col-sm-5" ng-model="formData.taskDescription"    placeholder="Enter task description">
+                           <input type="submit" class="btn btn-outlined btn-success col-sm-2" value="Add">
+                        </div>
+                     </form>
                   </div>
                   <!-- Add new task to group -->
-                  <form ng-submit="taskCtrl.addTask(group)">
-                     <div class="col-sm-8 input-group">
-                        <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.title" placeholder="Enter task title">
-                        <input type="text" class="form-control magicMarginInput" ng-model="taskCtrl.task.description" placeholder="Enter task description">
-                        <input type="submit" class="btn btn-outlined btn-success" value="Add New Task">
-                     </div>
-                  </form>
-               </div>
-               
+               </div>  
            </div>
        </div>
 
        <h2>Wanna new one?</h2>
       <!-- Adding new group -->
-      <form class="input-group">
-         <input type="text" class="col-sm-5 form-control" ng-model="group.title" placeholder="Titile">
-         <input type="submit" class="col-sm-3 btn btn-outlined btn-success" value="Add New Group" ng-click="groupsCtrl.addGroup(group)">
-      </form>
+
+      <div class="col-sm-12 col-9">
+         <form class="form-inline">
+            <input type="text" class="form-control inp-margin col-sm-6" ng-model="formData.title" placeholder="Titile">
+            <input type="submit" class="btn btn-outlined btn-success col-sm-3" ng-click="groupsCtrl.addGroup(formData.title)" value="Add New Group">
+         </form>               
+      </div>
    </div>
-   </body>
+</body>
 </html>

@@ -45,5 +45,4 @@ angular.module('app').factory('groupFactory', function($http, $q){
     }
 
   }
-
 });

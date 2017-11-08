@@ -8,6 +8,41 @@ body{padding-top:30px; margin: 20px;}
 
 }
 
+.group-container {
+  padding-left: 0px;
+}
+
+@media (max-width: 600px) {
+    .container {
+      padding:0;
+      margin:0;
+    }
+
+    body {
+      padding:0;
+    }
+
+    h2 {
+      font-size: 20pt;
+    }
+
+    .btn {
+      font-size: 9pt;
+    }
+
+    .form-control {
+      font-size: 9pt;
+    }
+}
+
+a { 
+    cursor: pointer; 
+}
+
+.inp-margin {
+    margin-right: 3px; 
+}
+
 .magicMargin {
     margin-top: 10px; 
     margin-bottom: 10px; 
